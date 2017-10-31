@@ -9,15 +9,20 @@ class TestEneryFunctions(unittest.TestCase):
 
     def test_calc_kinetic(self):
         np.random.seed(0)
-        shape = (10, 3)
-        v_0 = np.random.randn(10, 3)
+
+        n = 10
+        nd = 3
+
+        shape = (n, nd)
+        m = np.random.rand(n)
+        v_0 = np.random.randn(n, nd)
 
         v_t = tf.placeholder_with_default(input=v_0, shape=shape)
-        ke_t = energy.calc_kinetic(v_t)
+        ke_t = energy.calc_kinetic(v_t, m)
 
         with tf.Session() as session:
             ke = session.run(ke_t)
-        self.assertAlmostEqual(ke, 0.045180565447062344)
+        self.assertAlmostEqual(ke, 0.0248751709907)
 
     def test_calc_potential(self):
         np.random.seed(0)
@@ -33,15 +38,21 @@ class TestEneryFunctions(unittest.TestCase):
 
     def test_calc_temperature(self):
         np.random.seed(0)
-        shape = (10, 3)
-        v_0 = np.random.randn(10, 3)
+
+        n = 10
+        nd = 3
+
+        shape = (n, nd)
+        m = np.random.rand(n)
+        v_0 = np.random.randn(n, nd)
 
         v_t = tf.placeholder_with_default(input=v_0, shape=shape)
-        temperature_t = energy.calc_temperature(v_t)
+
+        temperature_t = energy.calc_temperature(v_t, m)
 
         with tf.Session() as session:
             temperature = session.run(temperature_t)
-        self.assertAlmostEqual(temperature, 1.51572631744)
+        self.assertAlmostEqual(temperature, 0.83451703068)
 
 
 if __name__ == '__main__':
